@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROJECT • STELLAR — Recrutamento Inicial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { color-scheme: dark; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  min-height:100vh; overflow-x:hidden; color:#fff; font-family:Inter,sans-serif;
+  background:radial-gradient(ellipse at 50% 35%,#25224d 0%,#101027 48%,#080812 100%);
+}
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; opacity:.5;
+  background-image:radial-gradient(2px 2px at 20% 30%,white,transparent),
+    radial-gradient(2px 2px at 70% 20%,white,transparent),
+    radial-gradient(1px 1px at 40% 70%,white,transparent),
+    radial-gradient(2px 2px at 85% 80%,white,transparent),
+    radial-gradient(1px 1px at 10% 90%,white,transparent);
+  background-size:240px 240px;
+}
+header {
+  position:relative; z-index:2; padding:25px 7%; display:flex;
+  justify-content:space-between; align-items:center; border-bottom:1px solid #ffffff18;
+}
+.logo { font-family:Cinzel,serif; letter-spacing:4px; font-size:16px; color:#e2d7ff; }
+.header-tag { font-size:10px; letter-spacing:2px; color:#9996b8; }
+main { position:relative; z-index:1; width:min(1120px,100%); margin:auto; padding:66px 24px 80px; }
+.eyebrow { color:#b5a3ff; font-size:10px; letter-spacing:5px; margin-bottom:15px; text-transform:uppercase; text-align:center; }
+h1 { font-family:Cinzel,serif; text-align:center; font-size:clamp(28px,5vw,48px); letter-spacing:2px; text-shadow:0 0 30px #9b78ff66; }
+.subtitle { margin:14px auto 0; color:#aaa8c5; font-size:13px; line-height:1.7; text-align:center; max-width:600px; }
+.packages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; margin:48px auto 30px; }
+.pack-option {
+  --a:#8e79ff; --b:#211b46; --c:#d9caff;
+  position:relative; display:flex; flex-direction:column; align-items:center; text-align:center;
+  min-width:0; padding:18px 16px 22px; border:1px solid color-mix(in srgb,var(--a),transparent 45%);
+  border-radius:18px; overflow:hidden; cursor:pointer; color:#fff;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--b),#fff 7%),#101020 80%);
+  box-shadow:0 18px 45px #0005; transition:transform .25s,border-color .25s,box-shadow .25s;
+}
+.pack-option::before {
+  content:""; position:absolute; inset:-60% -30% auto; height:240px;
+  background:radial-gradient(ellipse,var(--a),transparent 68%); opacity:.18; pointer-events:none;
+}
+.pack-option:hover { transform:translateY(-8px); border-color:var(--c); box-shadow:0 22px 55px color-mix(in srgb,var(--a),transparent 78%); }
+.pack-option.selected { transform:translateY(-8px); border:2px solid var(--c); box-shadow:0 0 0 3px color-mix(in srgb,var(--a),transparent 78%),0 22px 60px color-mix(in srgb,var(--a),transparent 65%); }
+.pack-option.blue { --a:#43c9ff; --b:#142e50; --c:#b8efff; }
+.pack-option.violet { --a:#a779ff; --b:#302052; --c:#e1caff; }
+.pack-option.red { --a:#ff5d70; --b:#451b2b; --c:#ffc0c8; }
+.pack-number { position:relative; z-index:1; color:var(--c); font-size:9px; letter-spacing:3px; margin-bottom:13px; }
+.pack-art {
+  position:relative; z-index:1; width:min(100%,210px); aspect-ratio:4/4.2; margin:0 auto 18px;
+  border:1px solid color-mix(in srgb,var(--c),transparent 35%); border-radius:13px;
+  background:radial-gradient(circle at 50% 38%,color-mix(in srgb,var(--a),transparent 35%),transparent 55%),linear-gradient(145deg,var(--b),#0d1020 80%);
+  box-shadow:inset 0 0 35px color-mix(in srgb,var(--a),transparent 75%),0 12px 30px #0007;
+  display:grid; place-items:center; overflow:hidden;
+}
+.pack-art::before,.pack-art::after { content:""; position:absolute; border:1px solid color-mix(in srgb,var(--c),transparent 45%); transform:rotate(45deg); }
+.pack-art::before { width:72%; height:72%; }
+.pack-art::after { width:48%; height:48%; }
+.pack-emblem { position:relative; z-index:1; font-size:64px; color:var(--c); text-shadow:0 0 30px var(--a),0 0 70px var(--a); }
+.pack-title { position:relative; z-index:1; font-family:Cinzel,serif; font-size:18px; letter-spacing:1px; }
+.pack-desc { position:relative; z-index:1; color:#b9b5d0; font-size:11px; line-height:1.6; margin-top:8px; min-height:35px; }
+.choose-label { position:relative; z-index:1; margin-top:17px; padding:10px 18px; width:100%; border:1px solid color-mix(in srgb,var(--c),transparent 30%); border-radius:6px; color:var(--c); font-size:9px; font-weight:800; letter-spacing:2px; }
+.selection-note { min-height:20px; color:#c8bddf; text-align:center; font-size:11px; letter-spacing:1px; }
+.continue {
+  display:block; margin:18px auto 0; padding:15px 34px; border:1px solid #c7a8ff; border-radius:6px;
+  color:#fff; background:linear-gradient(100deg,#6444a4,#9b71d5); cursor:pointer;
+  letter-spacing:2px; font-size:10px; font-weight:800; transition:filter .2s,transform .2s;
+}
+.continue:hover { filter:brightness(1.2); transform:translateY(-2px); }
+.continue:disabled { opacity:.35; cursor:not-allowed; transform:none; filter:none; }
+.hidden { display:none !important; }
+.opening { text-align:center; animation:fadeIn .5s ease both; }
+.back {
+  display:inline-block; margin:0 auto 28px; border:1px solid #ffffff35; background:#ffffff0b;
+  color:#c9c3dc; padding:10px 16px; border-radius:5px; cursor:pointer; font-size:10px; letter-spacing:1px;
+}
+.opening-title { font-family:Cinzel,serif; font-size:clamp(23px,4vw,34px); margin-bottom:10px; color:#e5d5ff; }
+.opening-sub { color:#aaa8c5; font-size:12px; }
+.package-area { min-height:390px; display:flex; justify-content:center; align-items:center; margin:18px 0 10px; perspective:1000px; }
+.package {
+  --a:#a779ff; --b:#302052; --c:#e1caff;
+  width:270px; height:320px; position:relative; cursor:grab; touch-action:pan-y; user-select:none;
+  filter:drop-shadow(0 25px 35px #0009);
+}
+.package.blue { --a:#43c9ff; --b:#142e50; --c:#b8efff; }
+.package.violet { --a:#a779ff; --b:#302052; --c:#e1caff; }
+.package.red { --a:#ff5d70; --b:#451b2b; --c:#ffc0c8; }
+.package:active { cursor:grabbing; }
+.package-body {
+  position:absolute; inset:0; border:2px solid var(--c); border-radius:12px 12px 22px 22px; overflow:hidden;
+  background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--a),var(--b) 45%),var(--b) 60%,#101020);
+  box-shadow:inset 0 0 40px color-mix(in srgb,var(--a),transparent 75%),0 0 35px color-mix(in srgb,var(--a),transparent 75%);
+}
+.package-body::before,.package-body::after { content:""; position:absolute; top:0; width:1px; height:100%; background:var(--c); opacity:.45; }
+.package-body::before { left:14px; } .package-body::after { right:14px; }
+.stars { position:absolute; inset:0; opacity:.7; background-image:radial-gradient(2px 2px at 25% 25%,white,transparent),radial-gradient(2px 2px at 75% 40%,var(--c),transparent),radial-gradient(2px 2px at 40% 75%,white,transparent); background-size:100px 100px; }
+.package-symbol { position:absolute; top:82px; width:100%; text-align:center; font-size:72px; color:var(--c); text-shadow:0 0 30px var(--a); }
+.package-name { position:absolute; top:184px; width:100%; text-align:center; font-family:Cinzel,serif; font-size:17px; letter-spacing:2px; color:var(--c); }
+.package-count { position:absolute; bottom:28px; width:100%; text-align:center; color:#d0c7df; font-size:10px; letter-spacing:3px; }
+.tear-strip {
+  position:absolute; z-index:4; top:-5px; left:0; width:100%; height:54px;
+  background:linear-gradient(100deg,var(--c),var(--a),var(--c)); border:2px solid #fff8;
+  border-radius:9px 9px 2px 2px; color:#20172c; display:flex; align-items:center; justify-content:center;
+  font-weight:800; font-size:10px; letter-spacing:1.5px; cursor:grab; transition:opacity .2s;
+}
+.tear-strip span { pointer-events:none; }
+.package.open .tear-strip { animation:tearAway .7s forwards; }
+@keyframes tearAway { 0%{transform:translate(0,0) rotate(0)} 100%{transform:translate(150px,-170px) rotate(35deg);opacity:0} }
+.instruction { color:#d4c5ff; font-size:11px; letter-spacing:2px; text-align:center; animation:pulse 1.8s infinite; }
+@keyframes pulse { 50%{opacity:.4} }
+.progress { margin:17px auto 0; width:180px; height:3px; background:#ffffff22; border-radius:10px; overflow:hidden; }
+.progress-fill { height:100%; width:0%; background:var(--c,#c9a9ff); transition:width .1s; }
+.rewards { width:min(950px,100%); margin:35px auto 0; animation:fadeIn .8s ease both; }
+.reward-title { text-align:center; font-family:Cinzel,serif; font-size:25px; margin-bottom:28px; color:#e5d5ff; }
+.cards { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px; }
+.character { min-width:0; padding:8px; border:1px solid #a58bdc66; background:linear-gradient(160deg,#302950,#15152b); border-radius:12px; text-align:center; animation:cardAppear .6s backwards; }
+.character:nth-child(2){animation-delay:.15s}.character:nth-child(3){animation-delay:.3s}.character:nth-child(4){animation-delay:.45s}
+@keyframes cardAppear { from{opacity:0;transform:translateY(35px) scale(.9)} to{opacity:1;transform:translateY(0) scale(1)} }
+.character-art { height:150px; overflow:hidden; border-radius:8px; background:radial-gradient(circle,#62518c,#211d3b); }
+.character-art img { width:100%; height:100%; object-fit:cover; display:block; }
+.character small { display:block; color:#c5a9ff; margin-top:12px; letter-spacing:2px; font-size:9px; }
+.character h3 { font-family:Cinzel,serif; font-size:14px; margin-top:8px; }
+.character p { color:#aaa8c5; font-size:10px; line-height:1.5; margin:7px 0; }
+.finish { display:block; margin:35px auto 0; border:1px solid #c7a8ff; color:white; background:linear-gradient(100deg,#6444a4,#9b71d5); padding:15px 35px; border-radius:5px; cursor:pointer; letter-spacing:2px; font-weight:700; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+@media(max-width:760px) {
+  main { padding:48px 17px 60px; }
+  .packages { gap:12px; margin-top:35px; }
+  .pack-option { padding:14px 10px 17px; }
+  .pack-art { width:100%; }
+  .pack-emblem { font-size:48px; }
+  .pack-title { font-size:14px; }
+  .pack-desc { font-size:10px; }
+  .choose-label { padding:9px 5px; font-size:8px; }
+  .cards { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .character-art { height:130px; }
+}
+@media(max-width:480px) {
+  header { padding:20px 5%; }
+  .logo { font-size:13px; letter-spacing:2px; }
+  .header-tag { font-size:8px; letter-spacing:1px; }
+  .packages { grid-template-columns:1fr; max-width:330px; }
+  .pack-option { display:grid; grid-template-columns:105px 1fr; grid-template-rows:auto auto 1fr auto; column-gap:14px; text-align:left; align-items:center; }
+  .pack-number { grid-column:2; margin:0 0 4px; }
+  .pack-art { grid-column:1; grid-row:1 / span 3; width:105px; margin:0; }
+  .pack-emblem { font-size:42px; }
+  .pack-title { grid-column:2; }
+  .pack-desc { grid-column:2; min-height:0; }
+  .choose-label { grid-column:1 / -1; text-align:center; margin-top:13px; }
+  .package { width:245px; height:300px; }
+  .cards { gap:10px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">PROJECT • STELLAR</div>
+  <div class="header-tag">RECRUTAMENTO ESPECIAL</div>
+</header>
+
+<main>
+  <section id="selection">
+    <div class="eyebrow">Uma nova jornada começa</div>
+    <h1>Escolha seu destino</h1>
+    <p class="subtitle">Três caminhos estão diante de você. Escolha um pacote inicial para iniciar sua jornada.</p>
+
+    <div class="packages">
+      <button class="pack-option blue" data-pack="blue" type="button" aria-pressed="false">
+        <span class="pack-number">PACOTE INICIAL 01</span>
+        <span class="pack-art"><span class="pack-emblem">✦</span></span>
+        <span class="pack-title">AURORA</span>
+        <span class="pack-desc">Uma energia fria, tecnológica e misteriosa.</span>
+        <span class="choose-label">SELECIONAR PACOTE</span>
+      </button>
+
+      <button class="pack-option violet" data-pack="violet" type="button" aria-pressed="false">
+        <span class="pack-number">PACOTE INICIAL 02</span>
+        <span class="pack-art"><span class="pack-emblem">✧</span></span>
+        <span class="pack-title">ARCANO</span>
+        <span class="pack-desc">Poder antigo envolto em mistério e magia.</span>
+        <span class="choose-label">SELECIONAR PACOTE</span>
+      </button>
+
+      <button class="pack-option red" data-pack="red" type="button" aria-pressed="false">
+        <span class="pack-number">PACOTE INICIAL 03</span>
+        <span class="pack-art"><span class="pack-emblem">⬡</span></span>
+        <span class="pack-title">ABISMO</span>
+        <span class="pack-desc">Uma presença intensa que desafia o desconhecido.</span>
+        <span class="choose-label">SELECIONAR PACOTE</span>
+      </button>
+    </div>
+
+    <p class="selection-note" id="selectionNote">Selecione um dos três pacotes para continuar.</p>
+    <button class="continue" id="continueButton" type="button" disabled>CONTINUAR</button>
+  </section>
+
+  <section id="opening" class="opening hidden">
+    <button class="back" id="backButton" type="button">← VOLTAR À ESCOLHA</button>
+    <div class="eyebrow">Recrutamento inicial</div>
+    <h2 class="opening-title" id="openingTitle">Pacote Aurora</h2>
+    <p class="opening-sub">Seu destino está selado dentro deste pacote.</p>
+
+    <div class="package-area">
+      <div class="package blue" id="packageBox">
+        <div class="package-body">
+          <div class="stars"></div>
+          <div class="package-symbol" id="packageSymbol">✦</div>
+          <div class="package-name" id="packageName">AURORA</div>
+          <div class="package-count">04 PERSONAGENS</div>
+        </div>
+        <div class="tear-strip" id="tear"><span>↔ ARRASTE PARA RASGAR ↔</span></div>
+      </div>
+    </div>
+
+    <p class="instruction" id="instruction">SEGURE E ARRASTE A PARTE SUPERIOR</p>
+    <div class="progress"><div class="progress-fill" id="progress"></div></div>
+
+    <section class="rewards hidden" id="rewards">
+      <div class="eyebrow">Recrutamento concluído</div>
+      <h2 class="reward-title">Seus novos aliados chegaram!</h2>
+      <div class="cards" id="cardsContainer"></div>
+      <button class="finish" id="finishButton" type="button">ESCOLHER OUTRO PACOTE</button>
+    </section>
+  </section>
+</main>
+
+<script>
+const packageOptions = [...document.querySelectorAll(".pack-option")];
+const continueButton = document.getElementById("continueButton");
+const selectionNote = document.getElementById("selectionNote");
+const selection = document.getElementById("selection");
+const opening = document.getElementById("opening");
+const packageBox = document.getElementById("packageBox");
+const tear = document.getElementById("tear");
+const progress = document.getElementById("progress");
+const instruction = document.getElementById("instruction");
+const rewards = document.getElementById("rewards");
+const cardsContainer = document.getElementById("cardsContainer");
+const openingTitle = document.getElementById("openingTitle");
+const packageName = document.getElementById("packageName");
+const packageSymbol = document.getElementById("packageSymbol");
+
+const packageInfo = {
+  blue: { name:"AURORA", title:"Pacote Aurora", symbol:"✦" },
+  violet: { name:"ARCANO", title:"Pacote Arcano", symbol:"✧" },
+  red: { name:"ABISMO", title:"Pacote Abismo", symbol:"⬡" }
+};
+
+const packageCharacters = {
+  blue: [
+    { name: "Megumi", desc: "O usuário das Dez Sombras.", img: "./imagens/Megumi.jpg" },
+    { name: "Killua", desc: "O prodígio que domina a eletricidade.", img: "./imagens/Killua.jpg" },
+    { name: "Orihime", desc: "A aliada com poderes de rejeição do fenômeno.", img: "./imagens/Orihime.jpg" },
+    { name: "Tanjiro", desc: "O espadachim de respiração da água e do sol.", img: "./imagens/Tanjiro.jpg" }
+  ],
+  violet: [
+    { name: "Gojo", desc: "O feiticeiro mais forte detentor do Ilimitado.", img: "./imagens/gojo.jpg" },
+    { name: "Itachi", desc: "O mestre dos corvos e do Tsukuyomi.", img: "./imagens/itachi.jpg" },
+    { name: "Rukia", desc: "A shinigami que empunha a Sode no Shirayuki.", img: "./imagens/rukia.jpg" },
+    { name: "Gon", desc: "O caçador determinado guiado pelo Jajanken.", img: "./imagens/gon.jpg" }
+  ],
+  red: [
+    { name: "Sukuna", desc: "O temido Rei das Maldições.", img: "./imagens/Sukuna.jpg" },
+    { name: "Madara", desc: "A lenda do clã Uchiha e do Susanoo perfeito.", img: "./imagens/Madara.jpg" },
+    { name: "Ulquiorra", desc: "O quarto Espada que personifica o vazio.", img: "./imagens/Ulquiorra.jpg" },
+    { name: "Hisoka", desc: "O mágico imprevisível da Bungee Gum.", img: "./imagens/Hisoka.jpg" }
+  ]
+};
+
+let selectedPack = null;
+let dragging = false;
+let startX = 0;
+let amount = 0;
+let opened = false;
+
+packageOptions.forEach(option => {
+  option.addEventListener("click", () => {
+    selectedPack = option.dataset.pack;
+    packageOptions.forEach(item => {
+      const active = item === option;
+      item.classList.toggle("selected", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    selectionNote.textContent = `${packageInfo[selectedPack].title} selecionado.`;
+    continueButton.disabled = false;
+  });
+});
+
+continueButton.addEventListener("click", () => {
+  if (!selectedPack) return;
+  const info = packageInfo[selectedPack];
+  packageBox.className = `package ${selectedPack}`;
+  packageName.textContent = info.name;
+  packageSymbol.textContent = info.symbol;
+  openingTitle.textContent = info.title;
+  selection.classList.add("hidden");
+  opening.classList.remove("hidden");
+  resetOpening();
+});
+
+document.getElementById("backButton").addEventListener("click", returnToSelection);
+document.getElementById("finishButton").addEventListener("click", returnToSelection);
+
+tear.addEventListener("pointerdown", e => {
+  if (opened) return;
+  dragging = true;
+  startX = e.clientX;
+  tear.setPointerCapture(e.pointerId);
+});
+
+tear.addEventListener("pointermove", e => {
+  if (!dragging || opened) return;
+  const distance = Math.max(0, e.clientX - startX);
+  amount = Math.min(100, distance / 2.2);
+  progress.style.width = amount + "%";
+  tear.style.transform = `translateX(${distance * .35}px) rotate(${distance * .03}deg)`;
+  if (amount >= 100) openPackage();
+});
+
+function stopDrag() {
+  if (opened) return;
+  dragging = false;
+  if (amount < 100) {
+    tear.style.transform = "";
+    progress.style.width = "0%";
+    amount = 0;
+  }
+}
+tear.addEventListener("pointerup", stopDrag);
+tear.addEventListener("pointercancel", stopDrag);
+
+function renderCards(packKey) {
+  const chars = packageCharacters[packKey] || [];
+  cardsContainer.innerHTML = chars.map((char, index) => `
+    <article class="character">
+      <div class="character-art">
+        <img src="${char.img}" alt="${char.name}" onerror="this.style.display='none'">
+      </div>
+      <small>PERSONAGEM 0${index + 1}</small>
+      <h3>${char.name}</h3>
+      <p>${char.desc}</p>
+    </article>
+  `).join("");
+}
+
+function openPackage() {
+  if (opened) return;
+  opened = true;
+  dragging = false;
+  packageBox.classList.add("open");
+  instruction.textContent = "PACOTE ABERTO!";
+  renderCards(selectedPack);
+  setTimeout(() => rewards.classList.remove("hidden"), 850);
+}
+
+function resetOpening() {
+  opened = false;
+  dragging = false;
+  amount = 0;
+  rewards.classList.add("hidden");
+  cardsContainer.innerHTML = "";
+  packageBox.classList.remove("open");
+  tear.style.transform = "";
+  progress.style.width = "0%";
+  instruction.textContent = "SEGURE E ARRASTE A PARTE SUPERIOR";
+}
+
+function returnToSelection() {
+  resetOpening();
+  opening.classList.add("hidden");
+  selection.classList.remove("hidden");
+}
+</script>
+</body>
+</html>
